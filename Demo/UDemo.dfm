@@ -80,97 +80,12 @@ object FDemo: TFDemo
     Height = 13
     Caption = 'UTC Time:'
   end
-  object LBL_GPSSpeed: TGPSSpeed
-    Left = 48
-    Top = 124
-    Width = 61
-    Height = 21
-    GPS = GPS1
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = []
-  end
   object LBL_Course: TLabel
     Left = 8
     Top = 148
     Width = 38
     Height = 13
     Caption = 'Course:'
-  end
-  object GPSSpeed1: TGPSSpeed
-    Left = 112
-    Top = 124
-    Width = 61
-    Height = 21
-    GPS = GPS1
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = []
-    SpeedUnit = suMile
-  end
-  object GPSSpeed2: TGPSSpeed
-    Left = 176
-    Top = 124
-    Width = 61
-    Height = 21
-    GPS = GPS1
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = []
-    SpeedUnit = suNauticalMile
-  end
-  object GPSSatellitesPosition1: TGPSSatellitesPosition
-    Left = 272
-    Top = 4
-    Width = 193
-    Height = 201
-    GPS = GPS1
-    CardFont.Charset = DEFAULT_CHARSET
-    CardFont.Color = 13408614
-    CardFont.Height = -12
-    CardFont.Name = 'Tahoma'
-    CardFont.Style = [fsBold]
-    SatFont.Charset = DEFAULT_CHARSET
-    SatFont.Color = clBlue
-    SatFont.Height = -11
-    SatFont.Name = 'Tahoma'
-    SatFont.Style = []
-    Pen.Color = 13408614
-    Pen.Width = 2
-  end
-  object GPSCompass1: TGPSCompass
-    Left = 236
-    Top = 4
-    Width = 29
-    Height = 29
-    GPS = GPS1
-    CardFont.Charset = DEFAULT_CHARSET
-    CardFont.Color = clRed
-    CardFont.Height = -12
-    CardFont.Name = 'Arial'
-    CardFont.Style = [fsBold]
-    Pen.Color = 13408614
-    Pen.Width = 2
-    Brush.Color = 16764057
-  end
-  object GPSSatellitesReception1: TGPSSatellitesReception
-    Left = 292
-    Top = 208
-    Width = 157
-    Height = 185
-    GPS = GPS1
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ForeColor = clHotLight
   end
   object BTN_Start: TButton
     Left = 4
@@ -188,9 +103,8 @@ object FDemo: TFDemo
     Width = 133
     Height = 21
     ComProperty = cpPort
-    Text = 'COM1'
+    Text = 'COM11'
     Style = csDropDownList
-    ItemHeight = 13
     ItemIndex = 0
     TabOrder = 1
     OnChange = CMB_COMPortChange
@@ -203,29 +117,5 @@ object FDemo: TFDemo
     Caption = 'Valide position'
     TabOrder = 2
     OnClick = CHK_ValidClick
-  end
-  object GPS1: TGPS
-    BaudRate = br9600
-    DataBits = dbEight
-    StopBits = sbOneStopBit
-    Parity.Bits = prNone
-    FlowControl.OutCTSFlow = False
-    FlowControl.OutDSRFlow = False
-    FlowControl.ControlDTR = dtrDisable
-    FlowControl.ControlRTS = rtsDisable
-    FlowControl.XonXoffOut = False
-    FlowControl.XonXoffIn = False
-    OnGPSDatasChange = GPS1GPSDatasChange
-    OnAfterOpen = GPS1AfterOpen
-    OnAfterClose = GPS1AfterClose
-    Left = 112
-    Top = 80
-  end
-  object GPStoGPX1: TGPStoGPX
-    Active = False
-    GPS = GPS1
-    FileName = 'C:\CodeSource\TGPS\Demo\TestGPX.gpx'
-    Left = 168
-    Top = 84
   end
 end

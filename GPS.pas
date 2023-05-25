@@ -41,7 +41,7 @@ unit GPS;
 interface
 
 uses
-  SysUtils, Classes, Windows, CPortTypes, CPort, Math, StrUtils, ConvUtils,
+  SysUtils, Classes, Windows, {CPortTypes,} CPort, Math, StrUtils, ConvUtils,
   StdConvs, DateUtils, Forms, StdCtrls, Controls, Graphics, Imglist, Messages,
   GPX;
 
@@ -78,6 +78,9 @@ type
     NbrSats: Shortint;
     NbrSatsUsed: Shortint;
     Course: Double;
+    PDOP: single;
+    HDOP: single;
+    VDOP: single;
   end;
   TGPSDatasEvent = procedure(Sender: TObject; GPSDatas: TGPSDatas) of object;
 
@@ -89,7 +92,8 @@ type
     msgGPGSV, // Satellites in view
     msgGPRMA, // Recommended minimum specific GPS/Transit data Loran C
     msgGPRMC, // Recommended minimum specific GPS/Transit data
-    msgGPZDA  // Date and time 
+    msgGPZDA, // Date and time
+    msgGPGSA  // GPS DOP and active satellites
     );
 
   // Speed units
@@ -401,13 +405,14 @@ procedure LoadRessource(RessourceName: String; ImageList: TImageList);
 
 const
   // NMEA 0185's messages used
-  LstMsgDiffGP: array[msgGPGGA..msgGPZDA] of String = (
+  LstMsgDiffGP: array[msgGPGGA..msgGPGSA] of String = (
     'GGA', // Global Positioning System Fix Data
     'GLL', // Geographic position, Latitude and Longitude
     'GSV', // Satellites in view
     'RMA', // Recommended minimum specific GPS/Transit data Loran C
     'RMC', // Recommended minimum specific GPS/Transit data
-    'ZDA'  // Date and time
+    'ZDA', // Date and time
+    'GSA'  // GPS DOP and active satellites
     );
 
 var
@@ -744,6 +749,18 @@ begin
       msgGPZDA:
       begin
         FGPSDatas.UTCTime := StrTimeToTime(Resultat[1]);
+
+        // Trigger change
+        CallOnGPSDatasChange();
+      end;
+      msgGPGSA:
+      begin
+        with FGPSDatas do
+        begin
+          PDOP := StrToInteger(Resultat[16]);
+          HDOP := StrToInteger(Resultat[17]);
+          VDOP := StrToInteger(Resultat[18]);
+        end;
 
         // Trigger change
         CallOnGPSDatasChange();
